@@ -16,3 +16,18 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+      - name: NPM Install
+        run: npm install
+      - name: Docker Login
+        run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Docker build and push
+        run: |
+          # Run commands to build and push Docker images
+          docker build -t myntra .
+          docker tag myntra 797272/myntra:latest
+          docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
+          docker push 797272/myntra:latest
+        env:
+          DOCKER_CLI_ACI: 1
+
+    
