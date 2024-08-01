@@ -29,5 +29,14 @@ jobs:
           docker push 797272/myntra:latest
         env:
           DOCKER_CLI_ACI: 1
+  deploy:
+   needs: build-analyze-scan   
+   runs-on: [self-hosted]
+   steps:
+      - name: docker pull image
+        run: docker pull 797272/myntra:latest
+
+      - name: Deploy to container
+        run: docker run -d --name game -p 3000:3000 797272/myntra:latest
 
     
