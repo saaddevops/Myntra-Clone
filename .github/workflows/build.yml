@@ -51,7 +51,7 @@ jobs:
         run: docker pull 797272/myntra:latest
 
       - name: Deploy to container
-        run: docker run -d --name game -p 3000:3000 797272/myntra:latest
+        run: docker run -d --name myntra -p 3000:3000 797272/myntra:latest
       
       - name: Update kubeconfig
         run: aws eks --region ap-south-1 update-kubeconfig --name EKS_CLOUD
