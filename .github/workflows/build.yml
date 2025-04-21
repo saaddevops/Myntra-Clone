@@ -48,3 +48,12 @@ jobs:
       #     docker-scout quickview 797272/myntra:latest
       #     docker-scout cves 797272/myntra:latest
      
+deploy:
+   needs: build-analyze-scan   
+   runs-on: [self-hosted]
+   steps:
+      - name: docker pull image
+        run: docker pull sevenajay/myntra:latest
+
+      - name: Deploy to container
+        run: docker run -d --name game -p 3000:3000 sevenajay/myntra:latest
